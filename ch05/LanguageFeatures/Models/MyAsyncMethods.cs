@@ -9,7 +9,7 @@
             return httpTask.Content.Headers.ContentLength;
         }
 
-        public static async Task<IEnumerable<long?>> GetPageLengths(
+        public static async IAsyncEnumerable<long?> GetPageLengths(
             List<string> output, 
             params string[] urls)
         {
@@ -21,8 +21,8 @@
                 var httpMessage = await client.GetAsync($"http://{url}");
                 results.Add(httpMessage.Content.Headers.ContentLength);
                 output.Add($"Completed request for {url}");
+                yield return httpMessage.Content.Headers.ContentLength;
             }
-            return results;
         }
     }
 }
