@@ -2,10 +2,10 @@
 {
     public class HomeController : Controller
     {
-        bool FilterByPrice(Product? p)
-        {
-            return (p?.Price ?? 0) >= 20;
-        }
+        //bool FilterByPrice(Product? p)
+        //{
+        //    return (p?.Price ?? 0) >= 20;
+        //}
 
         public IActionResult Index()
         {
@@ -17,13 +17,17 @@
                 new Product { Name = "Soccer ball", Price = 19.50M },
                 new Product { Name = "Corner flag", Price = 34.95M }
             };
-            Func<Product?, bool> nameFilter = delegate (Product? prod)
-            {
-                return prod?.Name?[0] == 'S';
-            };
+            //Func<Product?, bool> nameFilter = delegate (Product? prod)
+            //{
+            //    return prod?.Name?[0] == 'S';
+            //};
 
-            decimal priceFilterTotal = productArray.Filter(FilterByPrice).TotalPrices();
-            decimal nameFilterTotal = productArray.Filter(nameFilter).TotalPrices();
+            decimal priceFilterTotal = productArray
+                .Filter(p => (p?.Price ?? 0) >= 20)
+                .TotalPrices();
+            decimal nameFilterTotal = productArray
+                .Filter(p => p?.Name?[0] == 'S')
+                .TotalPrices();
 
             return View("Index", new string[] { 
                 $"Price Total: {priceFilterTotal:C2}",
