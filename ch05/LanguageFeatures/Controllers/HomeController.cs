@@ -5,7 +5,7 @@
         public async Task<ViewResult> Index()
         {
             List<string> output = new List<string>();
-            foreach (long? len in await MyAsyncMethods.GetPageLengths(
+            await foreach (long? len in MyAsyncMethods.GetPageLengths(
                 output,
                 "manning.com", "microsoft.com", "amazon.com"))
             {
