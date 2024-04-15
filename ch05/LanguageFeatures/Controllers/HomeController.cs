@@ -8,8 +8,8 @@ namespace LanguageFeatures.Controllers
         public IActionResult Index()
         {
             Product?[] products = Product.GetProducts();
-            Product? p = products[0];
-            string val = p != null ? p.Name : "No value";
+            string? val = products[0]?.Name;
+            val = val ?? "No Value";
             return View(new string[] { val });
         }
     }
