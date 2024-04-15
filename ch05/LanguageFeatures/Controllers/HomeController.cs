@@ -12,7 +12,7 @@
                 new { Name = "Corner flag", Price = 34.95M }
             };
 
-            return View(products.Select(p => $"{nameof(p.Name)}: {p.Name} {nameof(p.Price)}: {p.Price:C2}"));
+            return View(products.Select(p => $"{nameof(p.Name)}: {p.Name}, {nameof(p.Price)}: {p.Price:C2}"));
         }
     }
 }
