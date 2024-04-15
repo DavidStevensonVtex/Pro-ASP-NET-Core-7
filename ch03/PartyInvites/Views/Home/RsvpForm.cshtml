@@ -12,7 +12,8 @@
     <title>RsvpForm</title>
     </head>
     <body>
-        <form asp-action="RsvpForm" method="post" class="m-2">
+        <form asp-action="RsvpForm" method="post">
+            <div asp-validation-summary="All"></div>
             <div class="form-group">
                 <label asp-for="Name">Your name:</label>
                 <input asp-for="Name"/>
