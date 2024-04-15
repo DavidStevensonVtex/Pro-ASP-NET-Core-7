@@ -8,7 +8,8 @@ namespace LanguageFeatures.Controllers
         public IActionResult Index()
         {
             Product?[] products = Product.GetProducts();
-            return View(new string[] { products[0]!.Name });
+            #pragma warning disable CS8602
+            return View(new string[] { products[0].Name });
         }
     }
 }
