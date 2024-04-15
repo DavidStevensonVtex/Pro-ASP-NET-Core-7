@@ -2,7 +2,10 @@
 {
     public class HomeController : Controller
     {
-        public IActionResult Index() =>
-            View(Product.GetProducts().Select(p => p?.Name));
+        public IActionResult Index()
+        {
+            var names = new[] { "Kayak", "Lifejacket", "Soccer ball" };
+            return View(names);
+        }
     }
 }
