@@ -8,9 +8,13 @@
             decimal total = 0;
             foreach ( object dt in data)
             {
-                if ( dt is decimal d) 
-                {
-                    total += d;
+                switch (dt) {
+                    case decimal decimalValue:
+                        total += decimalValue; 
+                        break;
+                    case int intValue when intValue > 50:
+                        total += intValue; 
+                        break;
                 }
             }
             return View("Index", new string[] { $"Total: {total:C2}" });
