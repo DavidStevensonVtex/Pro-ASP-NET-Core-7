@@ -4,11 +4,11 @@ namespace SimpleApp.Tests
 {
     public class HomeControllerTests
     {
-        class FakeDataSource : IDataSource
-        {
-            public IEnumerable<Product> Products { get; set; }
-            public FakeDataSource(Product[] data) => Products = data;
-        }
+        //class FakeDataSource : IDataSource
+        //{
+        //    public IEnumerable<Product> Products { get; set; }
+        //    public FakeDataSource(Product[] data) => Products = data;
+        //}
 
         [Fact]
         public void IndexActionModelIsComplete()
@@ -21,10 +21,11 @@ namespace SimpleApp.Tests
                 new Product { Name = "P3", Price = 110M }
             };
 
-            IDataSource data = new FakeDataSource(testData);
+            var mock = new Mock<IDataSource>();
+            mock.SetupGet(m => m.Products).Returns(testData);
 
             var controller = new HomeController();
-            controller.dataSource = data;
+            controller.dataSource = mock.Object;
 
             Product[] products = new Product[]
             {
@@ -36,9 +37,10 @@ namespace SimpleApp.Tests
             var model = (controller.Index() as ViewResult)?.ViewData.Model as IEnumerable<Product>;
 
             // Assert
-            Assert.Equal(data.Products, model, 
+            Assert.Equal(testData, model, 
                 Comparer.Get<Product>((p1, p2) => p1?.Name == p2?.Name && 
                     p1?.Price == p2?.Price));
+            mock.VerifyGet(m => m.Products, Times.Once);
         }
     }
 }
