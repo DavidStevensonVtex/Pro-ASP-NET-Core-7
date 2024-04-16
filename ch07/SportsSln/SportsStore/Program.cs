@@ -11,6 +11,8 @@ namespace SportsStore
 
             builder.Services.AddControllersWithViews();
 
+            var connection = builder.Configuration["ConnectionStrings:SportsStoreConnection"];
+
             builder.Services.AddDbContext<StoreDbContext>(opts =>
                 opts.UseSqlServer(builder.Configuration["ConnectionStrings:SportsStoreConnection"]));
 
