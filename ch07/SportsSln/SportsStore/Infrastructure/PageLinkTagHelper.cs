@@ -5,7 +5,7 @@ using Microsoft.AspNetCore.Mvc.ViewFeatures;
 using Microsoft.AspNetCore.Razor.TagHelpers;
 using SportsStore.Models.ViewModels;
 
-namespace SportsStore.Infrastrructure
+namespace SportsStore.Infrastructure
 {
     [HtmlTargetElement("div", Attributes = "page-model")]
     public class PageLinkTagHelper : TagHelper
