@@ -12,7 +12,7 @@
         </tr>
     </thead>
     <tbody>
-        @foreach ( var line in Model.Cart?.lines ?? Enumerable.Empty<CartLine>()) {
+        @foreach ( var line in Model.Cart?.Lines ?? Enumerable.Empty<CartLine>()) {
             <tr>
                 <td class="text-center">@line.Quantity</td>
                 <td class="text-left">@line.Product.Name</td>
