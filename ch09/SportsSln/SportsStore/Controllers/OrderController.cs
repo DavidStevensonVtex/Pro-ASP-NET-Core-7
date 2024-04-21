@@ -2,7 +2,7 @@
 
 namespace SportsStore.Controllers
 {
-    public class Order : Controller
+    public class OrderController : Controller
     {
         public IActionResult Checkout() => View(new Order());
     }
