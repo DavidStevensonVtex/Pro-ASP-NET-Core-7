@@ -18,6 +18,11 @@ namespace WebApp
 
             builder.Services.AddControllers();
 
+            // https://learn.microsoft.com/en-gb/aspnet/core/security/cors?view=aspnetcore-7.0
+            // The optoins pattern is used to configure CORS with the CorsOptions class defined
+            // in the Microsoft.AspNetCore.Cors.Infrastructure namespace.
+            builder.Services.AddCors();
+
             var app = builder.Build();
 
             app.MapControllers();
