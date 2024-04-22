@@ -8,9 +8,10 @@ namespace SportsStore.Controllers
         private IOrderRepository repository;
         private Cart cart;
 
-        public OrderController(IOrderRepository repoService)
+        public OrderController(IOrderRepository repoService, Cart cartService)
         {
             repository = repoService;
+            cart = cartService;
         }
 
         public ViewResult Checkout() => View(new Order());
