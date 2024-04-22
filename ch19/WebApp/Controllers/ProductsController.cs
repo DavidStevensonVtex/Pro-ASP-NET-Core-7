@@ -44,6 +44,7 @@ namespace WebApp.Controllers
         public void DeleteProduct(long id)
         {
             context.Products.Remove(new Product() { ProductId = id, Name = string.Empty });
+            context.SaveChanges();
         }
     }
 }
