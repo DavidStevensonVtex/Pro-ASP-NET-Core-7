@@ -1,4 +1,4 @@
-﻿namespace WebApp
+﻿namespace WebApp.Models
 {
     public class Category
     {
@@ -6,5 +6,5 @@
         public required string Name { get; set; }
 
         public IEnumerable<Product>? { get ; set; }
-    }
+}
 }
