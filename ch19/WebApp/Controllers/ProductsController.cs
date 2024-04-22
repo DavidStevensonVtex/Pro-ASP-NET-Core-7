@@ -32,5 +32,18 @@ namespace WebApp.Controllers
             context.Products.Add(product);
             context.SaveChanges();
         }
+
+        [HttpPut]
+        public void UpdateProduct([FromBody] Product product)
+        {
+            context.Products.Update(product);
+            context.SaveChanges();
+        }
+
+        [HttpDelete("{id}")]
+        public void DeleteProduct(long id)
+        {
+            context.Products.Remove(new Product() { ProductId = id, Name = string.Empty });
+        }
     }
 }
