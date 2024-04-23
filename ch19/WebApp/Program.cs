@@ -8,6 +8,8 @@ namespace WebApp
     {
         public static void Main(string[] args)
         {
+            var MyAllowSpecificOrigins = "_myAllowSpecificOrigins";
+
             var builder = WebApplication.CreateBuilder(args);
 
             builder.Services.AddDbContext<DataContext>(opts =>
@@ -21,11 +23,21 @@ namespace WebApp
             // https://learn.microsoft.com/en-gb/aspnet/core/security/cors?view=aspnetcore-7.0
             // The optoins pattern is used to configure CORS with the CorsOptions class defined
             // in the Microsoft.AspNetCore.Cors.Infrastructure namespace.
-            builder.Services.AddCors();
+            builder.Services.AddCors(options =>
+            {
+                options.AddPolicy(name: MyAllowSpecificOrigins,
+                    policy =>
+                    {
+                        policy.WithOrigins("http://example.com",
+                                            "http://www.contoso.com");
+                    });
+            });
 
             var app = builder.Build();
 
             app.MapControllers();
+
+            app.UseCors(MyAllowSpecificOrigins);
 
             var context = app.Services.CreateScope().ServiceProvider.GetRequiredService<DataContext>();
             SeedData.SeedDatabase(context);
