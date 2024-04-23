@@ -20,10 +20,14 @@ namespace WebApp.Controllers
         }
 
         [HttpGet("{id}")]
-        public async Task<Product> GetProduct(long id, [FromServices] ILogger<ProductsController> logger)
+        public async Task<IActionResult> GetProduct(long id)
         {
-            logger.LogInformation("GetProduct Action Invoked");
-            return await context.Products.FindAsync(id);
+            Product? p = await context.Products.FindAsync(id);
+            if (p == null)
+            {
+                return NotFound();
+            }
+            return Ok(p);
         }
 
         [HttpPost]
