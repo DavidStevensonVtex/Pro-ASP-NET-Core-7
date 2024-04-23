@@ -50,5 +50,11 @@ namespace WebApp.Controllers
             context.Products.Remove(new Product() { ProductId = id, Name = string.Empty });
             await context.SaveChangesAsync();
         }
+
+        [HttpGet("redirect")]
+        public IActionResult Redirect()
+        {
+            return RedirectToAction(nameof(GetProduct), new { Id = 1 });
+        }
     }
 }
