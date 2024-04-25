@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.RateLimiting;
 using WebApp.Models;
 
 namespace WebApp.Controllers
@@ -10,6 +11,7 @@ namespace WebApp.Controllers
     // page 521
     [ApiController]
     [Route("api/[controller]")]
+    [EnableRateLimiting("fixedWindow")]
     public class ProductsController : ControllerBase
     {
         private DataContext context;
