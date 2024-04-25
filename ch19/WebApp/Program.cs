@@ -3,6 +3,7 @@ using Microsoft.EntityFrameworkCore;
 using System.Text.Json;
 using WebApp.Models;
 using System.Text.Json.Serialization;
+using Microsoft.AspNetCore.RateLimiting;
 
 namespace WebApp
 {
@@ -22,6 +23,14 @@ namespace WebApp
 
             builder.Services.AddControllers();
 
+            builder.Services.AddRateLimiter(opts =>
+                opts.AddFixedWindowLimiter("fixedWindow", fixOpts =>
+                {
+                    fixOpts.PermitLimit = 1;
+                    fixOpts.QueueLimit = 0;
+                    fixOpts.Window = TimeSpan.FromSeconds(15);
+                }));
+
             builder.Services.Configure<JsonOptions>(opts =>
                 opts.SerializerOptions.DefaultIgnoreCondition = JsonIgnoreCondition.WhenWritingNull);
 
@@ -39,6 +48,8 @@ namespace WebApp
             });
 
             var app = builder.Build();
+
+            app.UseRateLimiter();
 
             app.MapControllers();
 
