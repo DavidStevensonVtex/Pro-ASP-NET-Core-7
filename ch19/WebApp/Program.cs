@@ -1,6 +1,8 @@
+using Microsoft.AspNetCore.Http.Json;
 using Microsoft.EntityFrameworkCore;
 using System.Text.Json;
 using WebApp.Models;
+using System.Text.Json.Serialization;
 
 namespace WebApp
 {
@@ -19,6 +21,9 @@ namespace WebApp
             });
 
             builder.Services.AddControllers();
+
+            builder.Services.Configure<JsonOptions>(opts =>
+                opts.SerializerOptions.DefaultIgnoreCondition = JsonIgnoreCondition.WhenWritingNull);
 
             // https://learn.microsoft.com/en-gb/aspnet/core/security/cors?view=aspnetcore-7.0
             // The optoins pattern is used to configure CORS with the CorsOptions class defined
