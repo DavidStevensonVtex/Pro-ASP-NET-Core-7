@@ -11,7 +11,7 @@ namespace WebApp.Controllers
     // page 521
     [ApiController]
     [Route("api/[controller]")]
-    [EnableRateLimiting("fixedWindow")]
+    //[EnableRateLimiting("fixedWindow")]
     public class ProductsController : ControllerBase
     {
         private DataContext context;
