@@ -42,6 +42,12 @@ namespace WebApp
                 opts.SerializerSettings.NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore;
             });
 
+            builder.Services.Configure<MvcOptions>(opts =>
+            {
+                opts.RespectBrowserAcceptHeader = true;
+                opts.ReturnHttpNotAcceptable = true;
+            });
+
             // https://learn.microsoft.com/en-gb/aspnet/core/security/cors?view=aspnetcore-7.0
             // The optoins pattern is used to configure CORS with the CorsOptions class defined
             // in the Microsoft.AspNetCore.Cors.Infrastructure namespace.
