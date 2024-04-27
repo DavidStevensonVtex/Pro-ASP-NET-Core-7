@@ -48,6 +48,15 @@ namespace WebApp
                 opts.ReturnHttpNotAcceptable = true;
             });
 
+            builder.Services.AddOutputCache(opts =>
+            {
+                opts.AddPolicy("30sec", policy =>
+                {
+                    policy.Cache();
+                    policy.Expire(TimeSpan.FromSeconds(30));
+                });
+            });
+
             // https://learn.microsoft.com/en-gb/aspnet/core/security/cors?view=aspnetcore-7.0
             // The optoins pattern is used to configure CORS with the CorsOptions class defined
             // in the Microsoft.AspNetCore.Cors.Infrastructure namespace.
@@ -64,7 +73,7 @@ namespace WebApp
             var app = builder.Build();
 
             app.UseRateLimiter();
-
+            app.UseOutputCache();
             app.MapControllers();
 
             app.UseCors(MyAllowSpecificOrigins);
