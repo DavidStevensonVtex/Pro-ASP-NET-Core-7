@@ -8,3 +8,9 @@ Invoke-WebRequest http://localhost:5000/api/content/object `
 # Content Type                    Content
 # ------------                    -------
 # application/json; charset=utf-8 {"productId":1,"name":"Kayak","price":275.00,"categoryId":1,"supplierId":1}
+
+# After making a content negotiation change in Program.cs
+
+# Content Type                   Content
+# ------------                   -------
+# application/xml; charset=utf-8 <Product xmlns:i="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://schemas.datacontract.org/2004/07/WebApp.Models"><Category i:nil="…

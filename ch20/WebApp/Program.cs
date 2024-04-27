@@ -22,7 +22,9 @@ namespace WebApp
                 opts.EnableSensitiveDataLogging(true);
             });
 
-            builder.Services.AddControllers().AddNewtonsoftJson();
+            builder.Services.AddControllers()
+                .AddNewtonsoftJson()
+                .AddXmlDataContractSerializerFormatters();
 
             builder.Services.AddRateLimiter(opts =>
                 opts.AddFixedWindowLimiter("fixedWindow", fixOpts =>
