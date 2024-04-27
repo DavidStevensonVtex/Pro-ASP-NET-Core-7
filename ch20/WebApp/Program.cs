@@ -4,6 +4,7 @@ using System.Text.Json;
 using WebApp.Models;
 using System.Text.Json.Serialization;
 using Microsoft.AspNetCore.RateLimiting;
+using Microsoft.AspNetCore.Mvc;
 
 namespace WebApp
 {
@@ -21,7 +22,7 @@ namespace WebApp
                 opts.EnableSensitiveDataLogging(true);
             });
 
-            builder.Services.AddControllers();
+            builder.Services.AddControllers().AddNewtonsoftJson();
 
             builder.Services.AddRateLimiter(opts =>
                 opts.AddFixedWindowLimiter("fixedWindow", fixOpts =>
@@ -31,8 +32,13 @@ namespace WebApp
                     fixOpts.Window = TimeSpan.FromSeconds(15);
                 }));
 
-            builder.Services.Configure<JsonOptions>(opts =>
-                opts.SerializerOptions.DefaultIgnoreCondition = JsonIgnoreCondition.WhenWritingNull);
+            //builder.Services.Configure<JsonOptions>(opts =>
+            //    opts.SerializerOptions.DefaultIgnoreCondition = JsonIgnoreCondition.WhenWritingNull);
+
+            builder.Services.Configure<MvcNewtonsoftJsonOptions>(opts =>
+            {
+                opts.SerializerSettings.NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore;
+            });
 
             // https://learn.microsoft.com/en-gb/aspnet/core/security/cors?view=aspnetcore-7.0
             // The optoins pattern is used to configure CORS with the CorsOptions class defined
