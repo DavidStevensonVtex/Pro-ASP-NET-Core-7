@@ -5,6 +5,7 @@ using WebApp.Models;
 using System.Text.Json.Serialization;
 using Microsoft.AspNetCore.RateLimiting;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.OpenApi.Models;
 
 namespace WebApp
 {
@@ -57,6 +58,15 @@ namespace WebApp
                 });
             });
 
+            builder.Services.AddSwaggerGen(c =>
+            {
+                c.SwaggerDoc("v1", new OpenApiInfo
+                {
+                    Title = "WebApp",
+                    Version = "v1"
+                });
+            });
+
             // https://learn.microsoft.com/en-gb/aspnet/core/security/cors?view=aspnetcore-7.0
             // The optoins pattern is used to configure CORS with the CorsOptions class defined
             // in the Microsoft.AspNetCore.Cors.Infrastructure namespace.
@@ -75,6 +85,16 @@ namespace WebApp
             app.UseRateLimiter();
             app.UseOutputCache();
             app.MapControllers();
+
+            app.MapGet("/", () => "Hello World!");
+
+            app.UseSwagger();
+            // http://localhost:5000/swagger/v1/swagger.json
+            // http://localhost:5000/swagger/index.html
+            app.UseSwaggerUI(options =>
+            {
+                options.SwaggerEndpoint("/swagger/v1/swagger.json", "WebApp");
+            });
 
             app.UseCors(MyAllowSpecificOrigins);
 
