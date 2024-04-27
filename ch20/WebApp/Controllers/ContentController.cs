@@ -5,6 +5,7 @@ using WebApp.Models;
 namespace WebApp.Controllers
 {
     [ApiController]
+    [Route("api/[controller]")]
     public class ContentController : ControllerBase
     {
         private DataContext context;
